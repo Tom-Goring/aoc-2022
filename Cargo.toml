@@ -11,3 +11,4 @@ publish = false
 pico-args = "0.5.0"
 anyhow = "1.0.66"
 itertools = "*"
+nom = "7.1.1"
