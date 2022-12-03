@@ -10,15 +10,26 @@ fn parse_input(input: &str) -> Input {
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
-    parse_input(input).iter().map(|elf| elf.iter().sum::<u32>()).max()
+    parse_input(input)
+        .iter()
+        .map(|elf| elf.iter().sum::<u32>())
+        .max()
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    Some(parse_input(input).iter().map(|elf| elf.iter().sum::<u32>()).sorted().rev().take(3).sum::<u32>())
+    Some(
+        parse_input(input)
+            .iter()
+            .map(|elf| elf.iter().sum::<u32>())
+            .sorted()
+            .rev()
+            .take(3)
+            .sum::<u32>(),
+    )
 }
 
 fn main() {
-    let input =&advent_of_code::read_file("inputs", 1);
+    let input = &advent_of_code::read_file("inputs", 1);
     advent_of_code::solve!(1, part_one, input);
     advent_of_code::solve!(2, part_two, input);
 }
