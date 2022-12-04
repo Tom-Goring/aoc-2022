@@ -22,8 +22,8 @@ pub fn parse_input(input: &str) -> Vec<(HashSet<u32>, HashSet<u32>)> {
         .lines()
         .map(|l| l.split_at(l.len() / 2))
         .map(|(c1, c2)| {
-            let a: HashSet<u32> = c1.chars().map(|c| MAP[&c]).collect();
-            let b: HashSet<u32> = c2.chars().map(|c| MAP[&c]).collect();
+            let a: HashSet<u32> = HashSet::from_iter(c1.chars().map(|c| MAP[&c]));
+            let b: HashSet<u32> = HashSet::from_iter(c2.chars().map(|c| MAP[&c]));
             (a, b)
         })
         .collect()
