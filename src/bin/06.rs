@@ -1,16 +1,26 @@
 use itertools::Itertools;
 
+// 5.17µs if compiled with RUSTFLAGS="-C target-cpu=native"!
 pub fn solve(input: &str, size: usize) -> Option<u32> {
-    Some(
-        input
-            .as_bytes()
-            .windows(size)
-            .enumerate()
-            .find(|(_, w)| w.iter().all_unique())
-            .unwrap()
-            .0 as u32
-            + size as u32,
-    )
+    let masks = input
+        .chars()
+        .map(|c| 1u32 << (c as u32 - 'a' as u32)) // this turns a lowercase char into its index into the alphabet
+        .collect_vec();
+
+    let mut accum = 0u32;
+    for (i, mask) in masks.iter().enumerate() {
+        accum ^= mask;
+        if i >= size {
+            accum ^= masks[i - size];
+            if accum.count_ones() as usize == size {
+                // and then here we can xor the bitmask into an accum to keep track of which letters
+                // we've seen, and if we see 'size' number of them they're all unique!
+                return Some((i + 1) as u32);
+            }
+        }
+    }
+
+    None
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
